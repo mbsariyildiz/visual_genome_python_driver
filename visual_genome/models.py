@@ -10,6 +10,7 @@ class Image:
       url        hyperlink string
       width      int
       height     int
+      area       int
     """
 
     def __init__(self, id, url, width, height, coco_id, flickr_id):
@@ -17,16 +18,17 @@ class Image:
         self.url = url
         self.width = width
         self.height = height
+        self.area = width * height
         self.coco_id = coco_id
         self.flickr_id = flickr_id
 
     def __str__(self):
-        return 'id: %d, coco_id: %d, flickr_id: %d, width: %d, url: %s' \
+        return 'id: %d, coco_id: %d, flickr_id: %d, width: %d, height: %d, area: %d, url: %s' \
             % (self.id, -1
                 if self.coco_id is None
                 else self.coco_id, -1
                 if self.flickr_id is None
-                else self.flickr_id, self.width, self.url)
+                else self.flickr_id, self.width, self.height, self.area, self.url)
 
     def __repr__(self):
         return str(self)
@@ -35,12 +37,13 @@ class Image:
 class Region:
     """
     Region.
-      image 		   int
+      image 	       int
       phrase           string
       x                int
       y                int
       width            int
       height           int
+      area             int
     """
 
     def __init__(self, id, image, phrase, x, y, width, height):
@@ -51,12 +54,13 @@ class Region:
         self.y = y
         self.width = width
         self.height = height
+        self.area = width * height
 
     def __str__(self):
         stat_str = 'id: {0}, x: {1}, y: {2}, width: {3},' \
-                   'height: {4}, phrase: {5}, image: {6}'
+                   'height: {4}, area: {5}, phrase: {6}, image: {7}'
         return stat_str.format(self.id, self.x, self.y,
-                               self.width, self.height, self.phrase,
+                               self.width, self.height, self.area, self.phrase,
                                self.image.id)
 
     def __repr__(self):
